@@ -14,5 +14,3 @@ phases:
       - yum -y install packer
       - python3 -m pip -V
       - python3 -m pip install --user ansible
-  build:
-    commands:
