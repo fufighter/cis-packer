@@ -16,6 +16,7 @@ phases:
       - python3 -m pip -V
       - python3 -m pip install --user ansible
       - packer version
+      - export PATH=/root/.local/bin:$PATH
       - ansible --version
   build:
     commands:
