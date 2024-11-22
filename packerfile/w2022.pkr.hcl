@@ -11,15 +11,12 @@ packer {
   }
 }
 
-variable "AMI_ID" {
-  type    = string
-}
-
 variable "REGION_ID" {
   type    = string
+  default = "us-east-1"
 }
 
-variable "SECURITY_GROUP" {
+variable "SECURITY_GROUP_ID" {
   type    = string
 }
 
@@ -29,6 +26,15 @@ variable "SUBNET_ID" {
 
 variable "VPC_ID" {
   type    = string
+}
+
+data "amazon-ami" "source-ami" {
+  filters = {
+    name = "Windows_Server-2022-English-Full-Base*"
+  }
+  most_recent = true
+  owners      = ["801119661308"]
+  region      = "${var.REGION_ID}"
 }
 
 
@@ -45,8 +51,8 @@ source "amazon-ebs" "instance" {
     volume_type           = "gp3"
   }
   region            = "${var.REGION_ID}"
-  security_group_id = "${var.SECURITY_GROUP}"
-  source_ami        = "${var.AMI_ID}"
+  security_group_id = "${var.SECURITY_GROUP_ID}"
+  source_ami        = "${data.amazon-ami.source-ami.id}"
   ssh_interface     = "public_ip"
   subnet_id         = "${var.SUBNET_ID}"
   tags = {
