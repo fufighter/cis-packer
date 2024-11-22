@@ -77,7 +77,7 @@ build {
   sources = ["source.amazon-ebs.instance"]
 
   provisioner "ansible" {
-    playbook_file = "../playbooks/Windows-2022-CIS/site.yml"
+    playbook_file = "${CODEBUILD_SRC_DIR_Ansible}/Windows-2022-CIS/site.yml"
     extra_arguments = [
       "-vvv",
       "-e",
