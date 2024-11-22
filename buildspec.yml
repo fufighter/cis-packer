@@ -8,9 +8,11 @@ env:
 phases:
   install:
     runtime-versions:
-      python: 3.9
+      python: 3.10
     commands:
-      - apt-get -y install packer
+      - yum install -y yum-utils
+      - yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
+      - yum -y install packer
       - python3 -m pip -V
       - python3 -m pip install --user ansible
       - packer version
