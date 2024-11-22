@@ -15,10 +15,13 @@ phases:
       - yum -y install packer
       - python3 -m pip -V
       - python3 -m pip install --user ansible
+      - packer version
+      - ansible --version
   build:
     commands:
       - echo $CODEBUILD_SRC_DIR
       - cd $CODEBUILD_SRC_DIR
+      - ls -ltr
       - packer init
       - packer build w2022.pkr.hcl
 artifacts:
