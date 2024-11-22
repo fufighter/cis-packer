@@ -15,16 +15,12 @@ phases:
       - yum -y install packer
       - python3 -m pip -V
       - python3 -m pip install --user ansible
-      - "curl -s -qL -o terraform.zip https://releases.hashicorp.com/terraform/${TF_VERSION}/terraform_${TF_VERSION}_linux_amd64.zip"
-      - "unzip -o terraform.zip -d /bin/"
-      - "terraform -v"
   build:
     commands:
-      - "CODE_SRC_DIR=\"./terraform/live/${ENVIRONMENT}ecs\""
-      - "cd ${CODEBUILD_SRC_DIR}/${CODE_SRC_DIR}"
-      - "echo ###### TERRAFORM APPLY ######"
-      - "terraform apply tfapply"
-      - "bash ${CODEBUILD_SRC_DIR}/scripts/ecs_status.sh"
+      - echo $CODEBUILD_SRC_DIR
+      - cd $CODEBUILD_SRC_DIR
+      - packer init
+      - packer build w2022.pkr.hcl
 artifacts:
   files:
     - '**/*'
