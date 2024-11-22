@@ -81,7 +81,7 @@ build {
   sources = ["source.amazon-ebs.instance"]
 
   provisioner "ansible" {
-    playbook_file = "${PLAYBOOK}"
+    playbook_file = "${var.PLAYBOOK}"
     extra_arguments = [
       "-vvv",
       "-e",
