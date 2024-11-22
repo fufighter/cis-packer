@@ -25,7 +25,7 @@ phases:
       - ls -ltr ~
       - cd $CODEBUILD_SRC_DIR/packerfile
       - packer init w2022.pkr.hcl
-      - packer build -var "SECURITY_GROUP_ID=${SECURITY_GROUP_ID}" -var "VPC_ID=${VPC_ID}" -var "SUBNET_ID=${SUBNET_ID}" w2022.pkr.hcl 
+      - packer build -var "SECURITY_GROUP_ID=${SECURITY_GROUP_ID}" -var "VPC_ID=${VPC_ID}" -var "SUBNET_ID=${SUBNET_ID}" -var "PLAYBOOK=${CODEBUILD_SRC_DIR+playbook}/Windows-2022-CIS/site.yml" w2022.pkr.hcl 
 artifacts:
   files:
     - '**/*'

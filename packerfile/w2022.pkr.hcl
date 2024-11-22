@@ -28,6 +28,10 @@ variable "VPC_ID" {
   type    = string
 }
 
+variable "PLAYBOOK" {
+  type    = string
+}
+
 data "amazon-ami" "source-ami" {
   filters = {
     name = "Windows_Server-2022-English-Full-Base*"
@@ -77,7 +81,7 @@ build {
   sources = ["source.amazon-ebs.instance"]
 
   provisioner "ansible" {
-    playbook_file = "${CODEBUILD_SRC_DIR_Ansible}/Windows-2022-CIS/site.yml"
+    playbook_file = "${PLAYBOOK}"
     extra_arguments = [
       "-vvv",
       "-e",
