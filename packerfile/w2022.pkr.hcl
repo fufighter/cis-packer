@@ -83,7 +83,6 @@ build {
   provisioner "ansible" {
     playbook_file = "${var.PLAYBOOK}"
     extra_arguments = [
-      "-vvv",
       "-e",
       "ansible_winrm_server_cert_validation=ignore",
       "-e",
@@ -91,7 +90,9 @@ build {
       "--extra-vars",
       "ansible_shell_type=powershell",
       "--extra-vars",
-      "ansible_shell_executable=None"]
+      "ansible_shell_executable=None",
+      "--skip-tags",
+      "rule_1.2.1"]
     user = "Administrator"
     use_proxy = false
   }
