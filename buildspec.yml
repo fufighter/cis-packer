@@ -23,7 +23,7 @@ phases:
       - echo $CODEBUILD_SRC_DIR
       - ls -ltr ~
       - cd $CODEBUILD_SRC_DIR/packerfile
-      - packer init
+      - packer init w2022.pkr.hcl
       - packer build -var "SECURITY_GROUP_ID=${SECURITY_GROUP_ID}" -var "VPC_ID=${VPC_ID}" -var "SUBNET_ID=${SUBNET_ID}" w2022.pkr.hcl 
 artifacts:
   files:
