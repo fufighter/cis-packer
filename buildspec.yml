@@ -21,6 +21,7 @@ phases:
   build:
     commands:
       - echo $CODEBUILD_SRC_DIR
+      - echo $CODEBUILD_SRC_DIR_Ansible
       - ls -ltr ~
       - cd $CODEBUILD_SRC_DIR/packerfile
       - packer init w2022.pkr.hcl
