@@ -57,7 +57,7 @@ source "amazon-ebs" "instance" {
   region            = "${var.REGION_ID}"
   security_group_id = "${var.SECURITY_GROUP_ID}"
   source_ami        = "${data.amazon-ami.source-ami.id}"
-  ssh_interface     = "public_ip"
+  ssh_interface     = "private_ip"
   subnet_id         = "${var.SUBNET_ID}"
   tags = {
     Base_AMI_Name = "{{ .SourceAMIName }}"
