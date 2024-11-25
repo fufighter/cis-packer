@@ -52,7 +52,7 @@ data "amazon-ami" "source-ami" {
 
 # The "legacy_isotime" function has been provided for backwards compatability, but we recommend switching to the timestamp and formatdate functions.
 source "amazon-ebs" "instance" {
-  ami_name             = "CIS-${var.AMI}-build_num_${BUILDNUM}-${formatdate(\"YYYYMMDD\"),timestamp()}"
+  ami_name             = "CIS-${var.AMI}-build_num_${BUILDNUM}-${formatdate("YYYYMMDD",timestamp())}"
   communicator         = "winrm"
   iam_instance_profile = "packer"
   instance_type        = "m6a.xlarge"
