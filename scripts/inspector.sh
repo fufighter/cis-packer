@@ -5,8 +5,10 @@ echo $AWS_ACCOUNT_ID
 
 aws inspector2 create-cis-scan-configuration --schedule "oneTime={}" --scan-name packer --security-level LEVEL_1 --targets "accountIds=$ACCOUNTID,targetResourceTags={packer=$AMI_NAME-$CODEBUILD_BUILD_NUMBER}"
 
+aws inspector2 list-cis-scans
+
 SCANARN=$(aws inspector2 list-cis-scans | jq -r ".scans[] | select(.targets.targetResourceTags.packer==[\"$AMI_NAME-$CODEBUILD_BUILD_NUMBER\"]).scanArn")
-echo $SCANARN
+echo scanarn $SCANARN
 STATUS=$(aws inspector2 get-cis-scan-report --scan-arn $SCANARN | jq -r '.status')
 echo "$STATUS"
 
