@@ -86,21 +86,25 @@ build {
   name    = "test"
   sources = ["source.amazon-ebs.instance"]
 
-  provisioner "ansible" {
-    playbook_file = "${var.PLAYBOOK}"
-    extra_arguments = [
-      "-e",
-      "ansible_winrm_server_cert_validation=ignore",
-      "-e",
-      "ansible_winrm_transport=ntlm",
-      "--extra-vars",
-      "ansible_shell_type=powershell",
-      "--extra-vars",
-      "ansible_shell_executable=None",
-      "--skip-tags",
-      "rule_1.2.1"]
-    user = "Administrator"
-    use_proxy = false
+  #provisioner "ansible" {
+  #  playbook_file = "${var.PLAYBOOK}"
+  #  extra_arguments = [
+  #    "-e",
+  #    "ansible_winrm_server_cert_validation=ignore",
+  #    "-e",
+  #    "ansible_winrm_transport=ntlm",
+  #    "--extra-vars",
+  #    "ansible_shell_type=powershell",
+  #    "--extra-vars",
+  #    "ansible_shell_executable=None",
+  #    "--skip-tags",
+  #    "rule_1.2.1"]
+  #  user = "Administrator"
+  #  use_proxy = false
+  #}
+
+  provisioner "shell-local" {
+    scripts = ["../scripts/inspector.sh"]
   }
 
   provisioner "powershell" {
