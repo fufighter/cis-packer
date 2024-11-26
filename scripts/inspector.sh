@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 ACCOUNTID=$(aws sts get-caller-identity --query Account --output text)
 echo $ACCOUNTID
 
