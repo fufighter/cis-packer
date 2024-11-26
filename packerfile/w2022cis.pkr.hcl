@@ -67,6 +67,9 @@ source "amazon-ebs" "instance" {
   source_ami        = "${data.amazon-ami.source-ami.id}"
   ssh_interface     = "private_ip"
   subnet_id         = "${var.SUBNET_ID}"
+  run_tags = {
+    packer = "${var.AMI}-${var.BUILDNUM}"
+  }
   tags = {
     Base_AMI_Name = "{{ .SourceAMIName }}"
     Extra         = "{{ .SourceAMITags.TagName }}"
