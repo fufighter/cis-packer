@@ -3,6 +3,7 @@ ACCOUNTID=$(aws sts get-caller-identity --query Account --output text)
 echo $ACCOUNTID
 
 aws inspector2 create-cis-scan-configuration --schedule "oneTime={}" --scan-name packer --security-level LEVEL_1 --targets "accountIds=$ACCOUNTID,targetResourceTags={packer=$AMI_NAME-$CODEBUILD_BUILD_NUMBER}"
+sleep 5
 
 SCAN_ARN=$(aws inspector2 list-cis-scans | jq -r ".scans[] | select(.targets.targetResourceTags.packer==[\"${AMI_NAME}-${CODEBUILD_BUILD_NUMBER}\"]).scanArn")
 echo scanarn $SCAN_ARN
