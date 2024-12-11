@@ -40,6 +40,10 @@ variable "BUILDNUM" {
   type    = string
 }
 
+variable "INSTANCE_PROFILE" {
+  type    = string
+}
+
 data "amazon-ami" "source-ami" {
   filters = {
     name = "${var.AMI}*"
@@ -54,7 +58,7 @@ data "amazon-ami" "source-ami" {
 source "amazon-ebs" "instance" {
   ami_name             = "CIS-${var.AMI}-build_num_${var.BUILDNUM}-${formatdate("YYYYMMDD",timestamp())}"
   communicator         = "winrm"
-  iam_instance_profile = "packer"
+  iam_instance_profile = "${var.INSTANCE_PROFILE}"
   instance_type        = "m6a.xlarge"
   launch_block_device_mappings {
     delete_on_termination = true
