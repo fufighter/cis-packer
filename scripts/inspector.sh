@@ -7,6 +7,12 @@ sleep 5
 
 SCAN_ARN=$(aws inspector2 list-cis-scans | jq -r ".scans[] | select(.targets.targetResourceTags.packer==[\"${AMI_NAME}-${CODEBUILD_BUILD_NUMBER}\"]).scanArn")
 echo scanarn $SCAN_ARN
+  
+while [[ -z "$SCAN_ARN" ]]
+do
+  SCAN_ARN=$(aws inspector2 list-cis-scans | jq -r ".scans[] | select(.targets.targetResourceTags.packer==[\"${AMI_NAME}-${CODEBUILD_BUILD_NUMBER}\"]).scanArn")
+  echo scanarn $SCAN_ARN
+done
 
 aws sts get-caller-identity
 
@@ -19,4 +25,3 @@ do
   STATUS=$(aws inspector2 get-cis-scan-report --scan-arn $SCAN_ARN | jq -r '.status')
   echo "$STATUS (wait 30)... "
 done
-
