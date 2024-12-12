@@ -93,11 +93,11 @@ build {
 
   provisioner "ansible" {
     playbook_file   = "${var.PLAYBOOK}"
-    user            = "ubuntu"
+    user            = "root"
     extra_arguments = [
-      "-vvv",
+      "-v",
       "--skip-tags",
-      "password,aide,apparmor,motd,banner,ntp,xwindows,rsync,nis"
+      "password"
     ]
   }
 
