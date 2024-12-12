@@ -92,7 +92,8 @@ build {
   sources = ["source.amazon-ebs.instance"]
 
   provisioner "ansible" {
-    playbook_file = "${var.PLAYBOOK}"
+    playbook_file   = "${var.PLAYBOOK}"
+    user            = "ubuntu"
     extra_arguments = [
       "--skip-tags",
       "password"
