@@ -79,7 +79,7 @@ source "amazon-ebs" "instance" {
     Base_AMI_Name = "{{ .SourceAMIName }}"
     Extra         = "{{ .SourceAMITags.TagName }}"
   }
-  #user_data_file = "../scripts/packer-bootstrap.ps1"
+  user_data_file = "../scripts/ubuntu.sh"
   vpc_id         = "${var.VPC_ID}"
   aws_polling {
     delay_seconds = 60
@@ -90,14 +90,6 @@ source "amazon-ebs" "instance" {
 build {
   name    = "test"
   sources = ["source.amazon-ebs.instance"]
-
-  provisioner "shell" {
-    inline = ["sudo apt-get update"]
-  }
-
-  provisioner "shell" {
-    inline = ["sudo apt-get install apparmor -y"]
-  }
 
   provisioner "ansible" {
     playbook_file   = "${var.PLAYBOOK}"
