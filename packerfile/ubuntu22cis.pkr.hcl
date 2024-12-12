@@ -91,6 +91,14 @@ build {
   name    = "test"
   sources = ["source.amazon-ebs.instance"]
 
+  provisioner "shell" {
+    inline = ["sudo apt-get update"]
+  }
+
+  provisioner "shell" {
+    inline = ["sudo apt-get install apparmor -y"]
+  }
+
   provisioner "ansible" {
     playbook_file   = "${var.PLAYBOOK}"
     user            = "root"
