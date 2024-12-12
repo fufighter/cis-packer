@@ -96,7 +96,7 @@ build {
     user            = "ubuntu"
     extra_arguments = [
       "--skip-tags",
-      "password,aide,apparmor"
+      "password,aide,apparmor,motd"
     ]
   }
 
