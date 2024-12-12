@@ -96,7 +96,7 @@ build {
     user            = "ubuntu"
     extra_arguments = [
       "--skip-tags",
-      "password"
+      "password,rule_1.3.1"
     ]
   }
 
