@@ -95,9 +95,9 @@ build {
     playbook_file   = "${var.PLAYBOOK}"
     user            = "ubuntu"
     extra_arguments = [
-      "-vvvv",
+      "-vvv",
       "--skip-tags",
-      "password,aide,apparmor,motd,banner,ntp,xwindows,rsync"
+      "password,aide,apparmor,motd,banner,ntp,xwindows,rsync,nis"
     ]
   }
 
