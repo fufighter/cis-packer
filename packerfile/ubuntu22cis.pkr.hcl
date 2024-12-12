@@ -97,7 +97,7 @@ build {
     extra_arguments = [
       "-vvvv",
       "--skip-tags",
-      "password,aide,apparmor,motd,banner,ntp,xwindows"
+      "password,aide,apparmor,motd,banner,ntp,xwindows,rsync"
     ]
   }
 
