@@ -97,7 +97,7 @@ build {
     use_proxy       = false
     extra_arguments = [
       "--skip-tags",
-      "password"
+      "password,sudo"
     ]
   }
 
