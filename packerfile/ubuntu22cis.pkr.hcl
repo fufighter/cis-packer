@@ -104,13 +104,14 @@ build {
   }
 
   provisioner "shell" {
-      inline = ["sudo apt-get install apparmor -y"]
+      inline = ["whoami"]
   }
 
   provisioner "ansible" {
     playbook_file   = "${var.PLAYBOOK}"
     user            = "root"
     extra_arguments = [
+      "-vvvvv",
       "--skip-tags",
       "password"
     ]
