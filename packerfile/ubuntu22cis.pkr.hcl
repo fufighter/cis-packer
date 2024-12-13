@@ -93,9 +93,8 @@ build {
 
   provisioner "ansible" {
     playbook_file   = "${var.PLAYBOOK}"
-    user            = "root"
+    use_proxy       = false
     extra_arguments = [
-      "--connection=chroot",
       "--skip-tags",
       "password"
     ]
