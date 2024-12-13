@@ -93,6 +93,7 @@ build {
 
   provisioner "ansible" {
     playbook_file   = "${var.PLAYBOOK}"
+    user            = "ubuntu"
     use_proxy       = false
     extra_arguments = [
       "--skip-tags",
