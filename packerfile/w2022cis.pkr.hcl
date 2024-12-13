@@ -111,6 +111,8 @@ build {
     use_proxy = false
   }
 
+  provisioner "windows-restart" {}
+
   provisioner "shell-local" {
     scripts = ["../scripts/inspector.sh"]
   }
