@@ -96,6 +96,7 @@ build {
     user            = "ubuntu"
     use_proxy       = false
     extra_arguments = [
+      "-vvvv",
       "--skip-tags",
       "password"
     ]
