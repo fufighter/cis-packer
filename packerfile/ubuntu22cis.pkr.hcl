@@ -95,9 +95,9 @@ build {
     playbook_file   = "${var.PLAYBOOK}"
     user            = "root"
     extra_arguments = [
-      "-vvv",
+      "--connection=chroot",
       "--skip-tags",
-      "password,rule_1.6.1.2,motd"
+      "password"
     ]
   }
 
