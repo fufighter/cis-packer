@@ -5,9 +5,9 @@ phases:
     runtime-versions:
       python: 3.10
     commands:
-      - curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
-      - sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
-      - sudo apt-get update && sudo apt-get install packer
+      - yum install -y yum-utils
+      - yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
+      - yum -y install packer jq
       - python3 -m pip -V
       - python3 -m pip install --user ansible
       - pip install pywinrm
@@ -18,6 +18,5 @@ phases:
     commands:
       - ls -l $CODEBUILD_SRC_DIR/scripts
       - cd $CODEBUILD_SRC_DIR/packerfile
-      - cat ${PROJECT_NAME}.pkr.hcl
       - packer init ${PROJECT_NAME}.pkr.hcl
       - packer build -var "SECURITY_GROUP_ID=${SECURITY_GROUP_ID}" -var "VPC_ID=${VPC_ID}" -var "SUBNET_ID=${SUBNET_ID}" -var "PLAYBOOK=${CODEBUILD_SRC_DIR_playbook}/site.yml" -var "BUILDNUM=${CODEBUILD_BUILD_NUMBER}" -var "AMI=${AMI_NAME}" -var "INSTANCE_PROFILE=${INSTANCE_PROFILE}" ${PROJECT_NAME}.pkr.hcl 
