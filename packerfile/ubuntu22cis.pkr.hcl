@@ -97,7 +97,7 @@ build {
     extra_arguments = [
       "-vvv",
       "--skip-tags",
-      "password,rule_1.6.1.2"
+      "password,rule_1.6.1.2,motd"
     ]
   }
 
