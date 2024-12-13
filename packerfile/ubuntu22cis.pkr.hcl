@@ -59,7 +59,7 @@ source "amazon-ebs" "instance" {
   ami_name             = "CIS-${var.AMI}-build_num_${var.BUILDNUM}-${formatdate("YYYYMMDD",timestamp())}"
   communicator         = "ssh"
   iam_instance_profile = "${var.INSTANCE_PROFILE}"
-  instance_type        = "t3.medium"
+  instance_type        = "t3.large"
   launch_block_device_mappings {
     delete_on_termination = true
     device_name           = "/dev/sda1"
@@ -88,7 +88,7 @@ source "amazon-ebs" "instance" {
 }
 
 build {
-  name    = "test"
+  name    = "ubuntu22"
   sources = ["source.amazon-ebs.instance"]
 
   provisioner "ansible" {
@@ -96,7 +96,7 @@ build {
     user            = "root"
     extra_arguments = [
       "--skip-tags",
-      "password,aide"
+      "password"
     ]
   }
 
