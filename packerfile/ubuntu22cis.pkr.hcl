@@ -100,10 +100,7 @@ build {
       "--skip-tags",
       "password"
     ]
-    ansible_ssh_extra_args = [
-      "host_key_checking=false",
-      "remote_user=ubuntu"
-    ]
+  ansible_env_vars = [ "ANSIBLE_HOST_KEY_CHECKING=False", "ANSIBLE_SSH_ARGS='-o ForwardAgent=yes -o ControlMaster=auto -o ControlPersist=60s'", "ANSIBLE_NOCOLOR=True" ]
   }
 
   provisioner "shell-local" {
