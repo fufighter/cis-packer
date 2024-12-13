@@ -93,6 +93,7 @@ build {
 
   provisioner "ansible" {
     playbook_file   = "${var.PLAYBOOK}"
+    user            = "root"
     extra_arguments = [
       "--skip-tags",
       "password"
