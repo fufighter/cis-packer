@@ -95,6 +95,18 @@ build {
       inline = ["sleep 60"]
   }
 
+  provisioner "shell" {
+      inline = ["echo test"]
+  }
+
+  provisioner "shell" {
+      inline = ["sudo apt-get update"]
+  }
+
+  provisioner "shell" {
+      inline = ["sudo apt-get install apparmor -y"]
+  }
+
   provisioner "ansible" {
     playbook_file   = "${var.PLAYBOOK}"
     user            = "root"
