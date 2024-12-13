@@ -91,6 +91,10 @@ build {
   name    = "ubuntu22"
   sources = ["source.amazon-ebs.instance"]
 
+  provisioner "shell" {
+      inline = ["sleep 60"]
+  }
+
   provisioner "ansible" {
     playbook_file   = "${var.PLAYBOOK}"
     user            = "root"
