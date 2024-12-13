@@ -59,7 +59,7 @@ source "amazon-ebs" "instance" {
   ami_name             = "CIS-${var.AMI}-build_num_${var.BUILDNUM}-${formatdate("YYYYMMDD",timestamp())}"
   communicator         = "ssh"
   iam_instance_profile = "${var.INSTANCE_PROFILE}"
-  instance_type        = "t3.large"
+  instance_type        = "t3.medium"
   launch_block_device_mappings {
     delete_on_termination = true
     device_name           = "/dev/sda1"
@@ -91,25 +91,8 @@ build {
   name    = "ubuntu22"
   sources = ["source.amazon-ebs.instance"]
 
-  provisioner "shell" {
-      inline = ["sleep 60"]
-  }
-
-  provisioner "shell" {
-      inline = ["echo test"]
-  }
-
-  provisioner "shell" {
-      inline = ["sudo apt-get update"]
-  }
-
-  provisioner "shell" {
-      inline = ["whoami"]
-  }
-
   provisioner "ansible" {
     playbook_file   = "${var.PLAYBOOK}"
-    user            = "ubuntu"
     extra_arguments = [
       "--skip-tags",
       "password"

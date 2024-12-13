@@ -3,11 +3,11 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      python: 3.10
+      python: 3.9
     commands:
-      - yum install -y yum-utils
-      - yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
-      - yum -y install packer jq
+      - curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+      - sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+      - sudo apt-get update && sudo apt-get install packer
       - python3 -m pip -V
       - python3 -m pip install --user ansible
       - pip install pywinrm
