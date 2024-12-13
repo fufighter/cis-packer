@@ -96,6 +96,7 @@ build {
     user            = "ubuntu"
     use_proxy       = false
     extra_arguments = [
+      "ANSIBLE_HOST_KEY_CHECKING=False",
       "--skip-tags",
       "password"
     ]
