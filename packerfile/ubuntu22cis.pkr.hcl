@@ -96,9 +96,12 @@ build {
     user            = "ubuntu"
     use_proxy       = false
     extra_arguments = [
-      "ANSIBLE_HOST_KEY_CHECKING=False",
       "--skip-tags",
       "password"
+    ]
+    ansible_ssh_extra_args = [
+      "host_key_checking=false",
+      "remote_user=ubuntu"
     ]
   }
 
