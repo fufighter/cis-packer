@@ -103,7 +103,9 @@ build {
       "-e",
       "ansible_shell_type=powershell",
       "-e",
-      "ansible_shell_executable=None"
+      "ansible_shell_executable=None",
+      "--skip-tags",
+      "rule_1.2.1"
     ]
     user = "Administrator"
     use_proxy = false
