@@ -90,7 +90,7 @@ source "amazon-ebs" "instance" {
 }
 
 build {
-  name    = "test"
+  name    = "w2022"
   sources = ["source.amazon-ebs.instance"]
 
   provisioner "ansible" {
