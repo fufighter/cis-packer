@@ -79,7 +79,6 @@ source "amazon-ebs" "instance" {
     Base_AMI_Name = "{{ .SourceAMIName }}"
     Extra         = "{{ .SourceAMITags.TagName }}"
   }
-  user_data_file = "../scripts/ubuntu.sh"
   vpc_id         = "${var.VPC_ID}"
   aws_polling {
     delay_seconds = 60
