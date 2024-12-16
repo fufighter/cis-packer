@@ -104,4 +104,3 @@ build {
     scripts = ["../scripts/inspector.sh"]
   }
 }
-#test
