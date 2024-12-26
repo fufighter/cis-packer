@@ -1,0 +1,12 @@
+---
+- name: Ensure packages are installed
+  hosts: all
+  become: yes  # Use this if you need to run the tasks with elevated privileges
+  tasks:
+    - name: Ensure required packages are installed
+      package:
+        name:
+          - aide
+          - firewalld
+          - rsyslog
+        state: present
