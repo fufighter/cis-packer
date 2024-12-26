@@ -101,9 +101,9 @@ build {
     use_proxy       = false
     extra_arguments = [
       "--extra-vars",
-      "\"@extra_vars_${var.PROJECT}.json\"",
+      "@extra_vars_${var.PROJECT}.json",
       "--skip-tags",
-      "user_passwd"
+      "root,user_passwd"
     ]
   }
 
