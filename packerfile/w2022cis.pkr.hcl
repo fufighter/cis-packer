@@ -44,6 +44,10 @@ variable "INSTANCE_PROFILE" {
   type    = string
 }
 
+variable "PROJECT" {
+  type    = string
+}
+
 data "amazon-ami" "source-ami" {
   filters = {
     name = "${var.AMI}*"
@@ -90,7 +94,7 @@ source "amazon-ebs" "instance" {
 }
 
 build {
-  name    = "w2022"
+  name    = var.PROJECT
   sources = ["source.amazon-ebs.instance"]
 
   provisioner "ansible" {
