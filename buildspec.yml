@@ -28,4 +28,5 @@ phases:
           -var "BUILDNUM=${CODEBUILD_BUILD_NUMBER}" \
           -var "AMI=${AMI_NAME}" \
           -var "INSTANCE_PROFILE=${INSTANCE_PROFILE}" \
+          -var "PROJECT=${PROJECT_NAME}" \
           ${PROJECT_NAME}.pkr.hcl

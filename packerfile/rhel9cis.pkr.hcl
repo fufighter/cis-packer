@@ -50,10 +50,11 @@ variable "PROJECT" {
 
 data "amazon-ami" "source-ami" {
   filters = {
-    name = "${var.AMI}*"
+    name         = "${var.AMI}*"
+    architecture = "x86_64"
   }
   most_recent = true
-  owners      = ["099720109477"]
+  owners      = ["309956199498"]
   region      = "${var.REGION_ID}"
 }
 
@@ -74,7 +75,7 @@ source "amazon-ebs" "instance" {
   security_group_id = "${var.SECURITY_GROUP_ID}"
   source_ami        = "${data.amazon-ami.source-ami.id}"
   ssh_interface     = "private_ip"
-  ssh_username      = "ubuntu"
+  ssh_username      = "ec2-user"
   subnet_id         = "${var.SUBNET_ID}"
   run_tags = {
     packer = "${var.AMI}-${var.BUILDNUM}"
@@ -96,13 +97,13 @@ build {
 
   provisioner "ansible" {
     playbook_file   = "${var.PLAYBOOK}"
-    user            = "ubuntu"
+    user            = "ec2-user"
     use_proxy       = false
     extra_arguments = [
-      "-e",
+      "--extra-vars",
       "@extra_vars_${var.PROJECT}.json",
       "--skip-tags",
-      "sudo"
+      "user_passwd"
     ]
   }
 

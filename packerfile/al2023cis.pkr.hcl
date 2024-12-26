@@ -44,6 +44,10 @@ variable "INSTANCE_PROFILE" {
   type    = string
 }
 
+variable "PROJECT" {
+  type    = string
+}
+
 data "amazon-ami" "source-ami" {
   filters = {
     name         = "${var.AMI}*"
@@ -88,8 +92,14 @@ source "amazon-ebs" "instance" {
 }
 
 build {
-  name    = "amazonlinux"
+  name    = var.PROJECT
   sources = ["source.amazon-ebs.instance"]
+
+  provisioner "ansible" {
+    playbook_file   = "../playbooks/logicworks/al2023.yml"
+    user            = "ec2-user"
+    use_proxy       = false
+  }
 
   provisioner "ansible" {
     playbook_file   = "${var.PLAYBOOK}"
@@ -97,7 +107,7 @@ build {
     use_proxy       = false
     extra_arguments = [
       "--skip-tags",
-      "accounts,aide,firewalld,rsyslog,logrotate"
+      "accounts"
     ]
   }
 
