@@ -95,6 +95,15 @@ build {
   name    = var.PROJECT
   sources = ["source.amazon-ebs.instance"]
 
+  provisioner "shell" {
+    inline = [
+      "sudo dnf install -y https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm",
+      "sudo systemctl enable amazon-ssm-agent",
+      "sudo systemctl start amazon-ssm-agent",
+      "sudo systemctl status amazon-ssm-agent"
+    ]
+  }
+
   provisioner "ansible" {
     playbook_file   = "${var.PLAYBOOK}"
     user            = "ec2-user"
