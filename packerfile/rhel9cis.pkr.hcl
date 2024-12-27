@@ -103,7 +103,7 @@ build {
       "--extra-vars",
       "@extra_vars_${var.PROJECT}.json",
       "--skip-tags",
-      "root,user_passwd"
+      "root,user_passwd,sudo"
     ]
   }
 
