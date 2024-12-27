@@ -100,7 +100,7 @@ build {
     use_proxy       = false
     extra_arguments = [
       "-e",
-      "@extra_vars_${var.PROJECT}.json",
+      "@extra_vars_${var.PROJECT}.yml",
       "--skip-tags",
       "sudo"
     ]

@@ -95,7 +95,11 @@ build {
   name    = var.PROJECT
   sources = ["source.amazon-ebs.instance"]
 
-
+  provisioner "ansible" {
+    playbook_file   = "../playbooks/logicworks/al2023.yml"
+    user            = "ec2-user"
+    use_proxy       = false
+  }
 
   provisioner "ansible" {
     playbook_file   = "${var.PLAYBOOK}"
