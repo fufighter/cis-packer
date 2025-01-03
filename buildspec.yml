@@ -31,7 +31,7 @@ phases:
           -var "PROJECT=${PROJECT_NAME}" \
           ${PROJECT_NAME}.pkr.hcl
       - cat manifest.json
-      - mv manifest.json ../../
+      - mv manifest.json $CODEBUILD_SRC_DIR/
 artifacts:
   files:
     - manifest.json
