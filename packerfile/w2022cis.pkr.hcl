@@ -124,5 +124,9 @@ build {
       "& 'C:/Program Files/Amazon/EC2Launch/ec2launch' sysprep --shutdown",
     ]
   }
+
+  post-processor "manifest" {
+    output     = "manifest.json"
+    strip_path = true
+  }
 }
-# test trigger

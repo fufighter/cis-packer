@@ -30,3 +30,8 @@ phases:
           -var "INSTANCE_PROFILE=${INSTANCE_PROFILE}" \
           -var "PROJECT=${PROJECT_NAME}" \
           ${PROJECT_NAME}.pkr.hcl
+      - cat manifest.json
+      - mv manifest.json ../../
+artifacts:
+  files:
+    - manifest.json

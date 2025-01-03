@@ -119,5 +119,10 @@ build {
   provisioner "shell-local" {
     scripts = ["../scripts/inspector.sh"]
   }
+
+  post-processor "manifest" {
+    output     = "manifest.json"
+    strip_path = true
+  }
+
 }
-#test
