@@ -2,3 +2,4 @@
 
 system_is_ec2: true
 rhel9cis_rule_5_6_6: false
+rhel9cis_rule_1_4_1: false
