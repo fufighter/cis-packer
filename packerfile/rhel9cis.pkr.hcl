@@ -78,7 +78,7 @@ source "amazon-ebs" "instance" {
   ssh_username      = "ec2-user"
   subnet_id         = "${var.SUBNET_ID}"
   run_tags = {
-    packer = "${var.AMI}-${var.BUILDNUM}"
+    packer = "${var.PROJECT}-buildnum-${var.BUILDNUM}"
   }
   tags = {
     Base_AMI_Name = "{{ .SourceAMIName }}"
