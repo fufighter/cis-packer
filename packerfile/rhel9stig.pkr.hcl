@@ -108,12 +108,6 @@ build {
     playbook_file   = "${var.PLAYBOOK}"
     user            = "ec2-user"
     use_proxy       = false
-    extra_arguments = [
-      "--extra-vars",
-      "@extra_vars_${var.PROJECT}.yml",
-      "--skip-tags",
-      "root,user_passwd,sudo"
-    ]
   }
 
   provisioner "shell-local" {
