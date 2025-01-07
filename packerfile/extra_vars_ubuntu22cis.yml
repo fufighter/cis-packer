@@ -1,4 +1,5 @@
 ---
 
 system_is_ec2: true    
+ubtu22cis_rule_1_4_1: false
 ubtu22cis_rule_5_3_4: false
