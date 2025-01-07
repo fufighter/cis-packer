@@ -101,8 +101,6 @@ build {
     extra_arguments = [
       "-e",
       "@extra_vars_${var.PROJECT}.yml",
-      "--skip-tags",
-      "sudo"
     ]
   }
 
