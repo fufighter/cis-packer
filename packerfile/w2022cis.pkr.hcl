@@ -108,8 +108,8 @@ build {
       "ansible_shell_type=powershell",
       "-e",
       "ansible_shell_executable=None",
-      "--skip-tags",
-      "rule_1.2.1"
+      "-e",
+      "@extra_vars_${var.PROJECT}.yml",
     ]
     user = "Administrator"
     use_proxy = false

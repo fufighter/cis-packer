@@ -109,7 +109,7 @@ build {
     user            = "ec2-user"
     use_proxy       = false
     extra_arguments = [
-      "--extra-vars",
+      "-e",
       "@extra_vars_${var.PROJECT}.yml",
     ]
   }
