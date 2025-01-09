@@ -1,0 +1,32 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.10
+    commands:
+      - yum install -y yum-utils
+      - yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
+      - yum -y install packer jq
+      - packer version
+  build:
+    commands:
+      - ls -l $CODEBUILD_SRC_DIR/scripts
+      - cd $CODEBUILD_SRC_DIR/packerfile
+      - packer init inspec.${PROJECT_NAME}.pkr.hcl
+      - AMI_ID=$(cat manifest.json | jq -r '.builds[].artifact_id' | cut -d ":" -f 2)
+      - |
+        packer build \
+          -var "SECURITY_GROUP_ID=${SECURITY_GROUP_ID}" \
+          -var "VPC_ID=${VPC_ID}" \
+          -var "SUBNET_ID=${SUBNET_ID}" \
+          -var "BUILDNUM=${CODEBUILD_BUILD_NUMBER}" \
+          -var "AMI=${$AMI_ID}" \
+          -var "INSTANCE_PROFILE=${INSTANCE_PROFILE}" \
+          -var "PROJECT=${PROJECT_NAME}" \
+          inspec.${PROJECT_NAME}.pkr.hcl || true
+      - mv results.xml $CODEBUILD_SRC_DIR/
+reports:
+  inspec-reports:
+    files:
+      - results.xml
