@@ -30,3 +30,4 @@ reports:
   inspec-reports:
     files:
       - results.xml
+    file-format: "JUNITXML"
