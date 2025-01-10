@@ -61,7 +61,7 @@ data "amazon-ami" "source-ami" {
 
 # The "legacy_isotime" function has been provided for backwards compatability, but we recommend switching to the timestamp and formatdate functions.
 source "amazon-ebs" "instance" {
-  ami_name             = "CIS-${var.AMI}-build_num_${var.BUILDNUM}-${formatdate("YYYYMMDD",timestamp())}"
+  ami_name             = "${var.PROJECT}-build_num_${var.BUILDNUM}-${formatdate("YYYYMMDD",timestamp())}"
   communicator         = "ssh"
   iam_instance_profile = "${var.INSTANCE_PROFILE}"
   instance_type        = "t3.medium"
@@ -109,10 +109,6 @@ build {
       "--extra-vars",
       "@extra_vars_${var.PROJECT}.yml",
     ]
-  }
-
-  provisioner "shell-local" {
-    scripts = ["../scripts/inspector.sh"]
   }
 
   post-processor "manifest" {
