@@ -1,5 +1,9 @@
 version: 0.2
 
+env:
+  exported-variables:
+    - AMI_ID
+
 phases:
   install:
     runtime-versions:
@@ -34,8 +38,6 @@ phases:
       - AMI_ID=$(cat manifest.json | jq -r '.builds[].artifact_id' | cut -d ":" -f 2)
       - echo Ami_Id $AMI_ID
       - mv manifest.json $CODEBUILD_SRC_DIR/
-    exported-variables:
-      - AMI_ID
 artifacts:
   files:
     - manifest.json
