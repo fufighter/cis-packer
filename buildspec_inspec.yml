@@ -14,7 +14,10 @@ phases:
       - ls -l $CODEBUILD_SRC_DIR/scripts
       - cd $CODEBUILD_SRC_DIR/packerfile
       - packer init inspec.${PROJECT_NAME}.pkr.hcl
+      - ls -ltr ${CODEBUILD_SRC_DIR_packer_manifest}
+      - cat ${CODEBUILD_SRC_DIR_packer_manifest}/manifest.json
       - AMI_ID=$(cat ${CODEBUILD_SRC_DIR_packer_manifest}/manifest.json | jq -r '.builds[].artifact_id' | cut -d ":" -f 2)
+      - echo $AMD_ID
       - |
         packer build \
           -var "SECURITY_GROUP_ID=${SECURITY_GROUP_ID}" \
