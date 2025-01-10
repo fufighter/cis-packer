@@ -85,6 +85,10 @@ build {
   name    = var.PROJECT
   sources = ["source.amazon-ebs.instance"]
 
+  provisioner "shell-local" {
+    scripts = ["../scripts/inspector.sh"]
+  }
+
   provisioner "inspec" {
     extra_arguments = [ "--no-distinct-exit", "--reporter", "junit:results.xml" ]
     inspec_env_vars = [ "CHEF_LICENSE=accept"]

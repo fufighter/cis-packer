@@ -115,10 +115,6 @@ build {
     use_proxy = false
   }
 
-  provisioner "shell-local" {
-    scripts = ["../scripts/inspector.sh"]
-  }
-
   provisioner "powershell" {
     inline = [
       "& 'C:/Program Files/Amazon/EC2Launch/ec2launch' sysprep --shutdown",
