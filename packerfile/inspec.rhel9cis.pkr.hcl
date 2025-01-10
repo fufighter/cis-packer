@@ -64,7 +64,7 @@ source "amazon-ebs" "instance" {
   security_group_id = "${var.SECURITY_GROUP_ID}"
   skip_create_ami   = true
   source_ami        = "${var.AMI_ID}"
-  ssh_interface     = "public_ip"
+  ssh_interface     = "private_ip"
   ssh_username      = "ec2-user"
   subnet_id         = "${var.SUBNET_ID}"
   run_tags = {

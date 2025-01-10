@@ -15,14 +15,14 @@ phases:
       - cd $CODEBUILD_SRC_DIR/packerfile
       - packer init inspec.${PROJECT_NAME}.pkr.hcl
       - cat ${CODEBUILD_SRC_DIR_packer_manifest}/manifest.json
-      - echo ami_id - $AMD_ID
+      - echo ami_id - $AMI_ID
       - |
         packer build \
           -var "SECURITY_GROUP_ID=${SECURITY_GROUP_ID}" \
           -var "VPC_ID=${VPC_ID}" \
           -var "SUBNET_ID=${SUBNET_ID}" \
           -var "BUILDNUM=${CODEBUILD_BUILD_NUMBER}" \
-          -var "AMI=${AMI_ID}" \
+          -var "AMI_ID=${AMI_ID}" \
           -var "INSTANCE_PROFILE=${INSTANCE_PROFILE}" \
           -var "PROJECT=${PROJECT_NAME}" \
           inspec.${PROJECT_NAME}.pkr.hcl || true
