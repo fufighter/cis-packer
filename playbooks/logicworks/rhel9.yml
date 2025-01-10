@@ -1,0 +1,29 @@
+---
+- name: Install and configure Amazon SSM Agent
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Install Amazon SSM Agent
+      ansible.builtin.yum:
+        name: "https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm"
+        state: present
+
+    - name: Enable Amazon SSM Agent
+      ansible.builtin.systemd:
+        name: amazon-ssm-agent
+        enabled: yes
+
+    - name: Start Amazon SSM Agent
+      ansible.builtin.systemd:
+        name: amazon-ssm-agent
+        state: started
+
+    - name: Check status of Amazon SSM Agent
+      ansible.builtin.command:
+        cmd: "systemctl status amazon-ssm-agent"
+      register: ssm_agent_status
+
+    - name: Print status of Amazon SSM Agent
+      ansible.builtin.debug:
+        var: ssm_agent_status.stdout
