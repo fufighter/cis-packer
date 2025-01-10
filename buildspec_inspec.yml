@@ -3,19 +3,18 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      python: 3.10
+      ruby: latest
     commands:
-      - yum install -y yum-utils
+      - yum install -y yum-utils libxcrypt-compat
       - yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
-      - yum -y install packer jq
+      - yum install -y packer
+      - yum install -y https://afutest101.s3.us-east-1.amazonaws.com/inspec-4.3.2-1.el7.x86_64.rpm
+      - inspec version
       - packer version
   build:
     commands:
-      - ls -l $CODEBUILD_SRC_DIR/scripts
       - cd $CODEBUILD_SRC_DIR/packerfile
       - packer init inspec.${PROJECT_NAME}.pkr.hcl
-      - cat ${CODEBUILD_SRC_DIR_packer_manifest}/manifest.json
-      - echo ami_id - $AMI_ID
       - |
         packer build \
           -var "SECURITY_GROUP_ID=${SECURITY_GROUP_ID}" \
@@ -31,4 +30,6 @@ reports:
   inspec-reports:
     files:
       - results.xml
-    file-format: "JUNITXML"
+artifacts:
+  files:
+    - results.xml
