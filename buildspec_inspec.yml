@@ -19,18 +19,20 @@ phases:
       - cat ${CODEBUILD_SRC_DIR_packer_manifest}/manifest.json | jq -r '.builds[].artifact_id'
       - cat ${CODEBUILD_SRC_DIR_packer_manifest}/manifest.json | jq -r '.builds[].artifact_id' | cut -d ":" -f 2
       - AMI_ID=$(cat ${CODEBUILD_SRC_DIR_packer_manifest}/manifest.json | jq -r '.builds[].artifact_id' | cut -d ":" -f 2)
-      - echo $AMD_ID
+      - echo ami_id - $AMD_ID
       - |
         packer build \
           -var "SECURITY_GROUP_ID=${SECURITY_GROUP_ID}" \
           -var "VPC_ID=${VPC_ID}" \
           -var "SUBNET_ID=${SUBNET_ID}" \
           -var "BUILDNUM=${CODEBUILD_BUILD_NUMBER}" \
-          -var "AMI=${$AMI_ID}" \
+          -var "AMI=${AMI_ID}" \
           -var "INSTANCE_PROFILE=${INSTANCE_PROFILE}" \
           -var "PROJECT=${PROJECT_NAME}" \
           inspec.${PROJECT_NAME}.pkr.hcl || true
       - mv results.xml $CODEBUILD_SRC_DIR/
+    exported-variables:
+      - AMI_ID
 reports:
   inspec-reports:
     files:
