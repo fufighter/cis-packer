@@ -28,14 +28,6 @@ variable "VPC_ID" {
   type    = string
 }
 
-variable "PLAYBOOK" {
-  type    = string
-}
-
-variable "AMI" {
-  type    = string
-}
-
 variable "BUILDNUM" {
   type    = string
 }
@@ -48,13 +40,8 @@ variable "PROJECT" {
   type    = string
 }
 
-data "amazon-ami" "source-ami" {
-  filters = {
-    name = "${var.AMI}*"
-  }
-  most_recent = true
-  owners      = ["801119661308"]
-  region      = "${var.REGION_ID}"
+variable "AMI_ID" {
+  type    = string
 }
 
 
