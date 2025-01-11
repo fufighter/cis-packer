@@ -23,8 +23,8 @@ phases:
   build:
     commands:
       - ls -l $CODEBUILD_SRC_DIR/scripts
-      - ls -l $CODEBUILD_SRC_DIR/playbooks
-      - ls -l $CODEBUILD_SRC_DIR/playbooks/logicworks/
+      - ls -l $CODEBUILD_SRC_DIR_playbook
+      - ls -l $CODEBUILD_SRC_DIR_playbook/roles
       - cp $CODEBUILD_SRC_DIR/playbooks/logicworks/devsec.yml $ANSIBLE_PATH/devsec.yml
       - cd $CODEBUILD_SRC_DIR/packerfile
       - packer init ${PROJECT_NAME}.pkr.hcl
