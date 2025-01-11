@@ -2,7 +2,7 @@ version: 0.2
 
 env:
   variables:
-    ANSIBLE_PATH: ${CODEBUILD_SRC_DIR_playbook}/roles/os_hardening/
+    ANSIBLE_PATH: ${CODEBUILD_SRC_DIR_playbook}/roles/os_hardening
   exported-variables:
     - AMI_ID
 
