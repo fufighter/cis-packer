@@ -1,0 +1,46 @@
+version: 0.2
+
+env:
+  variables:
+    - ANSIBLE_PATH=${CODEBUILD_SRC_DIR_playbook}/roles/os_hardening/
+  exported-variables:
+    - AMI_ID
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.10
+    commands:
+      - yum install -y yum-utils
+      - yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
+      - yum -y install packer jq
+      - python3 -m pip -V
+      - python3 -m pip install --user ansible
+      - pip install pywinrm
+      - packer version
+      - export PATH=/root/.local/bin:$PATH
+      - ansible --version
+  build:
+    commands:
+      - ls -l $CODEBUILD_SRC_DIR/scripts
+      - cp $CODEBUILD_SRC_DIR/playbooks/logicworks/devsec.yml $ANSIBLE_PATH/
+      - cd $CODEBUILD_SRC_DIR/packerfile
+      - packer init ${PROJECT_NAME}.pkr.hcl
+      - |
+        packer build \
+          -var "SECURITY_GROUP_ID=${SECURITY_GROUP_ID}" \
+          -var "VPC_ID=${VPC_ID}" \
+          -var "SUBNET_ID=${SUBNET_ID}" \
+          -var "PLAYBOOK=${ANSIBLE_PATH}/devsec.yml" \
+          -var "BUILDNUM=${CODEBUILD_BUILD_NUMBER}" \
+          -var "AMI=${AMI_NAME}" \
+          -var "INSTANCE_PROFILE=${INSTANCE_PROFILE}" \
+          -var "PROJECT=${PROJECT_NAME}" \
+          ${PROJECT_NAME}.pkr.hcl
+      - cat manifest.json
+      - AMI_ID=$(cat manifest.json | jq -r '.builds[].artifact_id' | cut -d ":" -f 2)
+      - echo Ami_Id $AMI_ID
+      - mv manifest.json $CODEBUILD_SRC_DIR/
+artifacts:
+  files:
+    - manifest.json

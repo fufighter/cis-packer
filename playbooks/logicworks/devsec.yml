@@ -1,0 +1,7 @@
+---
+
+- name: Apply dev-sec os_hardening role
+  hosts: all
+  become: true
+  roles:
+    - role: "{{ playbook_dir }}"
