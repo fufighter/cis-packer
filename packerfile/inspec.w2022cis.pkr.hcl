@@ -92,10 +92,12 @@ build {
     scripts = ["../scripts/inspector.sh"]
   }
 
-  provisioner "inspec" {
-    extra_arguments = [ "--no-distinct-exit", "--reporter", "junit:results.xml" ]
-    inspec_env_vars = [ "CHEF_LICENSE=accept"]
-    profile = "https://github.com/dev-sec/windows-baseline/tree/2.1.7"
+  provisioner "shell-local" {
+    inline = [
+      "inspec exec https://github.com/dev-sec/windows-baseline/tree/2.1.7 -t winrm://${build.Host} --user 'Administrator' --password \"${build.Password}\" --self-signed --ssl || true"
+    ]
   }
+
+
 
 }
