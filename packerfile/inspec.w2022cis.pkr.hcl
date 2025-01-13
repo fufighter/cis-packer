@@ -63,6 +63,7 @@ source "amazon-ebs" "instance" {
   }
   region            = "${var.REGION_ID}"
   security_group_id = "${var.SECURITY_GROUP_ID}"
+  skip_create_ami   = true
   source_ami        = "${var.AMI_ID}"
   ssh_interface     = "private_ip"
   subnet_id         = "${var.SUBNET_ID}"
