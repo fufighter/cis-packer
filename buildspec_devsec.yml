@@ -15,6 +15,9 @@ phases:
       - python3 -m pip -V
       - python3 -m pip install --user ansible
       - pip install pywinrm
+      - yum install -y libxcrypt-compat
+      - yum install -y https://afutest101.s3.us-east-1.amazonaws.com/inspec-4.3.2-1.el7.x86_64.rpm
+      - inspec version
       - packer version
       - export PATH=/root/.local/bin:$PATH
       - ansible --version
