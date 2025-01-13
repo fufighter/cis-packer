@@ -95,7 +95,7 @@ build {
 
   provisioner "shell-local" {
     inline = [
-      "inspec exec https://github.com/dev-sec/windows-baseline/tree/2.1.7 -t winrm://${build.Host} --user 'Administrator' --password \"${build.Password}\" --self-signed --ssl || true"
+      "inspec exec https://github.com/dev-sec/windows-baseline/tree/2.1.7 -t winrm://${build.Host} --user 'Administrator' --password \"${build.Password}\" --reporter junit:results.xml --self-signed --ssl || true"
     ]
   }
 
