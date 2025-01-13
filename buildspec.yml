@@ -15,6 +15,9 @@ phases:
       - python3 -m pip -V
       - python3 -m pip install --user ansible
       - pip install pywinrm
+      - yum install -y libxcrypt-compat
+      - yum install -y https://afutest101.s3.us-east-1.amazonaws.com/inspec-4.3.2-1.el7.x86_64.rpm
+      - inspec version
       - packer version
       - export PATH=/root/.local/bin:$PATH
       - ansible --version
@@ -38,6 +41,25 @@ phases:
       - AMI_ID=$(cat manifest.json | jq -r '.builds[].artifact_id' | cut -d ":" -f 2)
       - echo Ami_Id $AMI_ID
       - mv manifest.json $CODEBUILD_SRC_DIR/
+  post_build:
+    commands:
+      - cd $CODEBUILD_SRC_DIR/packerfile
+      - packer init inspec.${PROJECT_NAME}.pkr.hcl
+      - |
+        packer build \
+          -var "SECURITY_GROUP_ID=${SECURITY_GROUP_ID}" \
+          -var "VPC_ID=${VPC_ID}" \
+          -var "SUBNET_ID=${SUBNET_ID}" \
+          -var "BUILDNUM=${CODEBUILD_BUILD_NUMBER}" \
+          -var "AMI_ID=${AMI_ID}" \
+          -var "INSTANCE_PROFILE=${INSTANCE_PROFILE}" \
+          -var "PROJECT=${PROJECT_NAME}" \
+          inspec.${PROJECT_NAME}.pkr.hcl || true
+      - mv results.xml $CODEBUILD_SRC_DIR/
 artifacts:
   files:
     - manifest.json
+reports:
+  inspec-reports:
+    files:
+      - results.xml
