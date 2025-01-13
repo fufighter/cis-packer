@@ -89,6 +89,13 @@ build {
     scripts = ["../scripts/inspector.sh"]
   }
 
+  provisioner "shell-local" {
+    inline = [
+      "echo ${build.SSHPrivateKey} > temp.pem",
+      "inspec exec https://github.com/dev-sec/cis-dil-benchmark -t ssh://${build.User}@${build.Hostname} -i temp.pem --reporter junit:results.xml || true"
+    ]
+  }
+
   provisioner "inspec" {
     extra_arguments = [ "--no-distinct-exit", "--reporter", "junit:results.xml" ]
     inspec_env_vars = [ "CHEF_LICENSE=accept"]
