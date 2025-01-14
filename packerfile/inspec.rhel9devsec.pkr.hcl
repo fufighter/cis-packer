@@ -96,7 +96,7 @@ build {
     ]
     inline = [
       "echo '${build.SSHPrivateKey}' > temp.pem",
-      "inspec exec https://github.com/dev-sec/cis-dil-benchmark -t ssh://$USER@$HOST -i temp.pem --reporter junit:results.xml || true"
+      "inspec exec https://github.com/dev-sec/cis-dil-benchmark -t ssh://$USER@$HOST -i temp.pem --reporter junit:results.xml --chef-license=accept || true"
     ]
   }
 
