@@ -92,7 +92,7 @@ build {
   provisioner "inspec" {
     extra_arguments = [ "--no-distinct-exit", "--reporter", "junit:results.xml" ]
     inspec_env_vars = [ "CHEF_LICENSE=accept"]
-    profile = "https://github.com/dev-sec/cis-dil-benchmark/tree/0.4.10"
+    profile = "https://github.com/dev-sec/cis-dil-benchmark/tree/0.4.7"
   }
 
 }
