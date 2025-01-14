@@ -92,7 +92,7 @@ build {
   provisioner "shell-local" {
     inline = [
       "echo ${build.SSHPrivateKey} > temp.pem",
-      "inspec exec https://github.com/dev-sec/cis-dil-benchmark -t ssh://${build.User}@${build.Hostname} -i temp.pem --reporter junit:results.xml || true"
+      "inspec exec https://github.com/dev-sec/cis-dil-benchmark -t ssh://${build.User}@${build.Host} -i temp.pem --reporter junit:results.xml || true"
     ]
   }
 
