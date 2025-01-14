@@ -55,8 +55,7 @@ phases:
           -var "INSTANCE_PROFILE=${INSTANCE_PROFILE}" \
           -var "PROJECT=${PROJECT_NAME}" \
           inspec.${PROJECT_NAME}.pkr.hcl || true
-      - mv devsec_results.xml $CODEBUILD_SRC_DIR/
-      - mv cis_results.xml $CODEBUILD_SRC_DIR/
+      - mv *.xml $CODEBUILD_SRC_DIR/
 artifacts:
   files:
     - manifest.json

@@ -90,9 +90,13 @@ build {
   }
 
   provisioner "shell-local" {
+    environment_vars = [
+      "USER=${build.User}",
+      "HOST=${build.Host}",
+    ]
     inline = [
-      "echo ${build.SSHPrivateKey} > temp.pem",
-      "inspec exec https://github.com/dev-sec/cis-dil-benchmark -t ssh://${build.User}@${build.Host} -i temp.pem --reporter junit:results.xml || true"
+      "echo '${build.SSHPrivateKey}' > temp.pem",
+      "inspec exec https://github.com/dev-sec/cis-dil-benchmark -t ssh://$USER@$HOST -i temp.pem --reporter junit:results.xml || true"
     ]
   }
 
