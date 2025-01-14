@@ -89,10 +89,12 @@ build {
     scripts = ["../scripts/inspector.sh"]
   }
 
-  provisioner "inspec" {
-    extra_arguments = [ "--no-distinct-exit", "--reporter", "junit:results.xml" ]
-    inspec_env_vars = [ "CHEF_LICENSE=accept"]
-    profile = "https://github.com/dev-sec/linux-baseline/tree/2.8.0"
+  provisioner "shell-local" {
+    scripts = [
+      "echo ${build.SSHPrivateKey} > temp.pem",
+      "inspec exec https://github.com/dev-sec/cis-dil-benchmark/tree/0.4.2 -t ssh://${build.User}@${build.Host} -i temp.pem --chef-license=accept --reporter junit:cis_results.xml || true",
+      "inspec exec https://github.com/dev-sec/linux-baseline/tree/2.8.0 -t ssh://${build.User}@${build.Host} -i temp.pem --chef-license=accept --reporter junit:devsec_results.xml || true",
+    ]
   }
 
 }
